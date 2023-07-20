@@ -1,0 +1,47 @@
+{
+  "name": "web3-crypto-box",
+  "version": "0.0.1",
+  "packageManager": "yarn@3.5.0",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.js",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "bin": "./dist/bin/cpbox",
+  "scripts": {
+    "cpbox": "node -r source-map-support/register ./dist/bin/cpbox",
+    "dev": "rollup -w --config rollup.config.ts --environment SOURCEMAP --configPlugin @rollup/plugin-typescript",
+    "build": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.5.0",
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@rollup/plugin-typescript": "^11.1.2",
+    "@types/node": "^20.3.2",
+    "chalk": "^5.2.0",
+    "commander": "^11.0.0",
+    "jest": "^29.5.0",
+    "magic-string": "^0.30.0",
+    "ora": "^6.3.1",
+    "rollup": "^3.25.3",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.0",
+    "typescript": "^5.1.5"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^2.3.0",
+    "abitype": "^0.8.11",
+    "bignumber.js": "^9.1.1",
+    "ethereum-cryptography": "^2.0.0",
+    "viem": "^1.2.1"
+  },
+  "workspaces": [
+    "example/*"
+  ]
+}
