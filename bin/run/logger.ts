@@ -18,13 +18,15 @@ class Logger {
     process.stdout.write(message);
   }
 
-  dye(color: "info" | "success" | "error" | string, message: string) {
+  dye(color: "info" | "success" | "warn" | "error" | string, message: string) {
     if (!message) return message;
     switch (color) {
       case "info":
         return chalk.blueBright(message);
       case "success":
         return chalk.greenBright(message);
+      case "warn":
+        return chalk.yellowBright(message);
       case "error":
         return chalk.redBright(message);
       default:
@@ -39,6 +41,11 @@ class Logger {
 
   success(message: string) {
     this.spinner.succeed(chalk.greenBright(message));
+  }
+
+  warn(message: string) {
+    this.spinner.stop();
+    console.log(chalk.yellowBright(message));
   }
 
   error(message: string) {

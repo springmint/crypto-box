@@ -20,8 +20,8 @@ const infura = http();
 class Client {
   chain: Chain;
   publicClient: PublicClient;
-  walletClient?: WalletClient;
-  account?: Account;
+  protected walletClient?: WalletClient;
+  protected account?: Account;
   constructor(chainId: number, privateKey?: Address) {
     this.chain = SUPPORTED_CHAIN_ID_MAP[chainId];
     if (!this.chain) throw new Error("不支持的网络");

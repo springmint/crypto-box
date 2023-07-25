@@ -6,7 +6,7 @@ Crypto box tool 是一个cpbox.io开源的的web3代码工具集合，致力于�
 
 ## Website
 
-查看[官网](httpw://www.cpbox.io)
+查看[官网:httpw://www.cpbox.io](httpw://www.cpbox.io)
 
 ## 联系邮箱we@cpbox.io
 

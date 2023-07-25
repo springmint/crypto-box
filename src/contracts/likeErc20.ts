@@ -52,23 +52,23 @@ class LikeErc20 extends Client {
     };
   }
 
-  async getAllowce(address: string, spender: string) {
+  async getAllowce(address: Address, spender: Address) {
     return await this.publicClient.readContract({
       address: this.contractAddress,
       abi: erc20Abi,
       functionName: "allowance",
-      args: [address as Address, spender as Address],
+      args: [address, spender],
     });
   }
 
-  async approve(spender: string, amount?: bigint) {
+  async approve(spender: Address, amount?: bigint) {
     if (!this.walletClient) throw new Error("没有传私钥进来");
     const account = this.account!;
     const chain = this.chain;
     const contract = this.getContract();
 
     return await contract.write.approve(
-      [spender as Address, amount ? amount : MAX_HEX_BIGINT],
+      [spender, amount ? amount : MAX_HEX_BIGINT],
       { chain, account }
     );
   }
