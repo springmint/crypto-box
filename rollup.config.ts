@@ -4,10 +4,12 @@ import typescript from "@rollup/plugin-typescript";
 import json from "@rollup/plugin-json";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import addCliEntry from "./build-plugins/add-cli-entry";
+import addEnv from "./build-plugins/add-env";
 import commonjs from "@rollup/plugin-commonjs";
 import cleanBeforeWrite from "./build-plugins/clean-before-write";
 
 const nodePlugins: readonly Plugin[] = [
+  addEnv(),
   nodeResolve({
     exportConditions: ["node"], // add node option here,
     preferBuiltins: false,

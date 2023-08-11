@@ -10,13 +10,17 @@
   ],
   "bin": "./dist/bin/cpbox",
   "scripts": {
+    "hardhat": "hardhat node",
     "cpbox": "node -r source-map-support/register ./dist/bin/cpbox",
-    "dev": "rollup -w --config rollup.config.ts --environment SOURCEMAP --configPlugin @rollup/plugin-typescript",
-    "build": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "start": "rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "build": "yarn start --environment NODE_ENV:production",
+    "dev": "yarn start -w --environment SOURCEMAP,NODE_ENV:development",
+    "test:hardhat": "yarn hardhat",
     "test": "jest"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "@rollup/plugin-commonjs": "^25.0.2",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
