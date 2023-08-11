@@ -12,10 +12,11 @@ import {
 } from "viem";
 import { SUPPORTED_CHAIN_ID_MAP } from "../constants";
 
-// const infura = http(
-//   "https://mainnet.infura.io/v3/432bf8bcedde4dad86675aab0f54c86a"
-// );
-const infura = http();
+const RPC_URL_LIST = import.meta.env.RPC_URL_LIST;
+console.log("import.meta--------");
+console.log(RPC_URL_LIST);
+console.log("import.meta--------");
+const transports = RPC_URL_LIST.map((rpcUrl) => http(rpcUrl));
 
 class Client {
   chain: Chain;
@@ -28,7 +29,7 @@ class Client {
 
     this.publicClient = createPublicClient({
       chain: this.chain,
-      transport: fallback([infura]),
+      transport: fallback([...transports, http()]),
     });
 
     if (privateKey) {
@@ -37,7 +38,7 @@ class Client {
       this.walletClient = createWalletClient({
         chain: this.chain,
         account: this.account,
-        transport: fallback([infura]),
+        transport: fallback([...transports, http()]),
       });
     }
   }
