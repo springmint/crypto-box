@@ -22,7 +22,7 @@ const sendParams = [
 ];
 const totalSend = sendParams.reduce(
   (sum, { amount }) => sum + amount,
-  BigInt(0)
+  BigInt("0")
 );
 
 const erc20TokenAddress = process.env.CPBOX_TOKEN_ADDRESS as Address;
@@ -69,7 +69,10 @@ describe("Batch send token", () => {
     const oldBalance = await erc20.getBalance(address);
     expect(oldBalance.wei).toBeGreaterThanOrEqual(totalSend);
 
-    const allowance = await erc20.getAllowce(address, batchSendToken.contractAddress);
+    const allowance = await erc20.getAllowce(
+      address,
+      batchSendToken.contractAddress
+    );
     if (allowance < totalSend) {
       await erc20.approve(batchSendToken.contractAddress, totalSend);
     }
