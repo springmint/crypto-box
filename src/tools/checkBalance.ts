@@ -1,5 +1,5 @@
 import { Address } from "viem";
-import MulticallContract from "src/contracts/multicall";
+import MulticallContract from "../contracts/multicall";
 
 class CheckBalance {
   constructor(public chainId: number, public tokenContractAddress?: Address) {}

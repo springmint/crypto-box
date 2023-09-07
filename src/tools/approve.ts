@@ -1,6 +1,6 @@
 import { Address } from "viem";
-import { LikeErc20 } from "src/contracts";
-import Client from "src/contracts/basic";
+import { LikeErc20 } from "../contracts";
+import Client from "../contracts/basic";
 
 export type ApproveParams = Array<{
   privateKey: Address;
