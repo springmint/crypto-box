@@ -16,7 +16,7 @@
     "build": "yarn start --environment NODE_ENV:production",
     "dev": "yarn start -w --environment SOURCEMAP,NODE_ENV:development",
     "test:hardhat": "yarn hardhat",
-    "test": "jest"
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest"
   },
   "devDependencies": {
     "@jest/globals": "^29.5.0",
@@ -42,6 +42,7 @@
     "@inquirer/prompts": "^2.3.0",
     "abitype": "^0.8.11",
     "bignumber.js": "^9.1.1",
+    "dotenv": "^16.3.1",
     "ethereum-cryptography": "^2.0.0",
     "ethereum-multicall": "^2.19.0",
     "viem": "^1.2.1"
@@ -55,7 +56,8 @@
     "url": "https://github.com/springmint/crypto-box"
   },
   "workspaces": [
-    "example/*"
+    "example/*",
+    "hardhat/*"
   ],
   "keywords": [
     "web3-crypto-box",

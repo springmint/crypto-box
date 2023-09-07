@@ -103,7 +103,8 @@
   "include": [
     "bin/**/*",
     "src/**/*",
-    "rollup.config.ts"
+    "rollup.config.ts",
+    "test-plugins/add-env.ts"
   ],
   "exclude": [
     "node_modules"
