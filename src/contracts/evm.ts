@@ -1,6 +1,6 @@
-import { Address } from "abitype";
 import { getNativeCurrency } from "../utils";
 import Client from "./basic";
+import { Address } from "viem";
 
 export class EVM extends Client {
   constructor(chainId: number, privateKey?: Address) {
@@ -19,8 +19,13 @@ export class EVM extends Client {
     return await this.publicClient.getBalance({ address });
   }
 
-  async transfer() {
-    // TODO when need
+  async transfer(toAddress: Address, amount: bigint) {
+    if (!this.walletClient) throw new Error("未初始化 privateKey");
+
+    return await this.walletClient.sendTransaction({
+      to: toAddress,
+      value: amount,
+    });
   }
 }
 

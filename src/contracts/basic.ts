@@ -9,6 +9,7 @@ import {
   WalletClient,
   Account,
   Chain,
+  FallbackTransport,
 } from "viem";
 import { SUPPORTED_CHAIN_ID_MAP } from "../constants";
 
@@ -16,8 +17,8 @@ const transports = [http(process.env.CPBOX_RPC_URL)];
 
 class Client {
   chain: Chain;
-  publicClient: PublicClient;
-  protected walletClient?: WalletClient;
+  publicClient: PublicClient<FallbackTransport, Chain>;
+  protected walletClient?: WalletClient<FallbackTransport, Chain, Account>;
   protected account?: Account;
   constructor(chainId: number, privateKey?: Address) {
     this.chain = SUPPORTED_CHAIN_ID_MAP[chainId];

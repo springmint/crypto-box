@@ -11,7 +11,7 @@ export interface TransferItem {
 const wrapTransferParams = (addressAndAmounts: Array<TransferItem>) => {
   const addresss: Array<Address> = [];
   const amounts: Array<bigint> = [];
-  let totalAmount = BigInt(0);
+  let totalAmount = BigInt("0");
   addressAndAmounts.forEach(({ address, amount }) => {
     addresss.push(address);
     amounts.push(amount);
@@ -22,7 +22,6 @@ const wrapTransferParams = (addressAndAmounts: Array<TransferItem>) => {
 
 class BatchTransfer extends Client {
   declare account: Account;
-  declare walletClient: WalletClient;
   contractAddress: Address;
   constructor(chainId: number, privateKey: Address) {
     super(chainId, privateKey);

@@ -72,6 +72,12 @@ class LikeErc20 extends Client {
       { chain, account }
     );
   }
+
+  async transfer(toAddress: Address, amount: bigint) {
+    if (!this.account) throw new Error("未初始化 privateKey");
+    const contract = this.getContract();
+    return await contract.write.transfer([toAddress, amount]);
+  }
 }
 
 export default LikeErc20;

@@ -43,6 +43,7 @@ class MulticallContract extends Client {
         const wei = result as bigint;
         return {
           address: addresss[index],
+          balanceOfWei: wei,
           balance: formatUnits(wei, decimals),
         };
       } else {
@@ -73,6 +74,7 @@ class MulticallContract extends Client {
         const wei = result as bigint;
         return {
           address: addresss[index],
+          balanceOfWei: wei,
           balance: formatUnits(wei, decimals),
         };
       } else {
