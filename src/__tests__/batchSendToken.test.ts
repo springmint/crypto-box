@@ -10,12 +10,12 @@ const privateKeys = JSON.parse(
 const privateKey = privateKeys[0];
 const sendParams = [
   {
-    address: "0x0000000000000000000000000000000000000001" as Address,
+    address: "0x0000000000123456789abcdef000000000000001" as Address,
     amount: parseEther("0.002", "wei"),
     balance: BigInt("0"),
   },
   {
-    address: "0x0000000000000000000000000000000000000002" as Address,
+    address: "0x0000000000123456789abcdef000000000000002" as Address,
     amount: parseEther("0.0001", "wei"),
     balance: BigInt("0"),
   },
@@ -67,7 +67,12 @@ describe("Batch send token", () => {
     const erc20 = new LikeErc20(erc20TokenAddress, chainId, privateKey);
     const address = batchSendToken.account.address;
     const oldBalance = await erc20.getBalance(address);
-    expect(oldBalance.wei).toBeGreaterThan(BigInt(0));
+    expect(oldBalance.wei).toBeGreaterThanOrEqual(totalSend);
+
+    const allowance = await erc20.getAllowce(address, batchSendToken.contractAddress);
+    if (allowance < totalSend) {
+      await erc20.approve(batchSendToken.contractAddress, totalSend);
+    }
 
     for (let i = 0; i < sendParams.length; i++) {
       const { address } = sendParams[i];
