@@ -7,15 +7,15 @@ const chainId = Number(process.env.CPBOX_CHAIN_ID);
 const privateKeys = JSON.parse(
   process.env.CPBOX_PRIVATE_KEY_LIST as string
 ) as Array<Address>;
-
+const privateKey = privateKeys[0];
 const sendParams = [
   {
-    address: "0x8258fa56642a8b9AD770272972004EC9Dc1fC4e7" as Address,
+    address: "0x0000000000000000000000000000000000000001" as Address,
     amount: parseEther("0.002", "wei"),
     balance: BigInt("0"),
   },
   {
-    address: "0x2192c4C8842D7650aC63613F20a0De7ab9F9c63a" as Address,
+    address: "0x0000000000000000000000000000000000000002" as Address,
     amount: parseEther("0.0001", "wei"),
     balance: BigInt("0"),
   },
@@ -25,11 +25,11 @@ const totalSend = sendParams.reduce(
   BigInt(0)
 );
 
-const erc20TokenAddress = process.env.CPBOX_LE_ETH as Address;
+const erc20TokenAddress = process.env.CPBOX_TOKEN_ADDRESS as Address;
 
 describe("Batch send token", () => {
   it("native token", async () => {
-    const batchSendToken = new BatchSendToken(chainId, privateKeys[0]);
+    const batchSendToken = new BatchSendToken(chainId, privateKey);
     const evm = new Evm(chainId);
     const address = batchSendToken.account.address;
     const oldBalance = await evm.getBalance(address);
@@ -61,10 +61,10 @@ describe("Batch send token", () => {
   it("erc20 token", async () => {
     const batchSendToken = new BatchSendToken(
       chainId,
-      privateKeys[0],
+      privateKey,
       erc20TokenAddress
     );
-    const erc20 = new LikeErc20(erc20TokenAddress, chainId, privateKeys[0]);
+    const erc20 = new LikeErc20(erc20TokenAddress, chainId, privateKey);
     const address = batchSendToken.account.address;
     const oldBalance = await erc20.getBalance(address);
     expect(oldBalance.wei).toBeGreaterThan(BigInt(0));

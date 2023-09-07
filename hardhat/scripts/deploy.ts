@@ -1,10 +1,10 @@
-import { Token } from "../typechain-types/Token";
+import { Token } from "../typechain-types/contracts/Token";
 import { ethers, artifacts } from "hardhat";
 import path from "node:path";
 import fs from "node:fs";
 
 async function main() {
-  const token = await ethers.deployContract("Token");
+  const token = await ethers.deployContract("Token", ["Crypto box", "CPBOX"]);
 
   await token.waitForDeployment();
 
