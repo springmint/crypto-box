@@ -18,6 +18,7 @@ yarn deploy
 ```bash
 # hardhat 目录中
 # 发送 10_000 代币到 receiver
+# @TODO
 yarn faucet <reciver>
 ```
 
