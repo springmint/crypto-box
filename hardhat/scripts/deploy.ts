@@ -33,13 +33,9 @@ function saveTokenInfo(token: Token) {
 
 function overrideEnv(token: Token) {
   const envFile = path.join(__dirname, "../../.dev.env");
+  const envBarFile = path.join(__dirname, "../../.dev.env.bar");
 
-  if (!fs.existsSync(envFile)) {
-    console.error("请创建 .dev.env 文件");
-    return;
-  }
-
-  const fileContent = fs.readFileSync(envFile).toString();
+  const fileContent = fs.readFileSync(envBarFile).toString();
   fs.writeFileSync(
     envFile,
     fileContent
