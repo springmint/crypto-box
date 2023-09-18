@@ -1,31 +1,31 @@
-import { WalletClient, getContract, Address, Account } from "viem";
-import TRANSFER_ABI from "./abi/transfer";
-import { TRANSFER_MAP } from "../constants";
-import Client from "./basic";
+import { WalletClient, getContract, Address, Account } from 'viem'
+import TRANSFER_ABI from './abi/transfer'
+import { CONTRACT_MAP_TRANSFER } from '../constants'
+import Client from './basic'
 
 export interface TransferItem {
-  address: Address;
-  amount: bigint;
+  address: Address
+  amount: bigint
 }
 
 const wrapTransferParams = (addressAndAmounts: Array<TransferItem>) => {
-  const addresss: Array<Address> = [];
-  const amounts: Array<bigint> = [];
-  let totalAmount = BigInt("0");
+  const addresss: Array<Address> = []
+  const amounts: Array<bigint> = []
+  let totalAmount = BigInt('0')
   addressAndAmounts.forEach(({ address, amount }) => {
-    addresss.push(address);
-    amounts.push(amount);
-    totalAmount = totalAmount += amount;
-  });
-  return { addresss, amounts, totalAmount };
-};
+    addresss.push(address)
+    amounts.push(amount)
+    totalAmount = totalAmount += amount
+  })
+  return { addresss, amounts, totalAmount }
+}
 
 class BatchTransfer extends Client {
-  declare account: Account;
-  contractAddress: Address;
+  declare account: Account
+  contractAddress: Address
   constructor(chainId: number, privateKey: Address) {
-    super(chainId, privateKey);
-    this.contractAddress = TRANSFER_MAP[chainId];
+    super(chainId, privateKey)
+    this.contractAddress = CONTRACT_MAP_TRANSFER[chainId]
   }
 
   private async getContract() {
@@ -34,35 +34,31 @@ class BatchTransfer extends Client {
       abi: TRANSFER_ABI,
       publicClient: this.publicClient,
       walletClient: this.walletClient,
-    });
+    })
   }
 
-  async batchTransferErc20Token(
-    tokenAddress: Address,
-    addressAndAmounts: Array<TransferItem>
-  ) {
-    const chain = this.chain;
-    const account = this.account;
-    const contract = await this.getContract();
-    const { addresss, amounts } = wrapTransferParams(addressAndAmounts);
-    return await contract.write.multiTransferToken(
-      [tokenAddress, addresss, amounts],
-      { chain, account }
-    );
+  async batchTransferErc20Token(tokenAddress: Address, addressAndAmounts: Array<TransferItem>) {
+    const chain = this.chain
+    const account = this.account
+    const contract = await this.getContract()
+    const { addresss, amounts } = wrapTransferParams(addressAndAmounts)
+    return await contract.write.multiTransferToken([tokenAddress, addresss, amounts], {
+      chain,
+      account,
+    })
   }
 
   async batchTransferNativeToken(addressAndAmounts: Array<TransferItem>) {
-    const chain = this.chain;
-    const account = this.account;
-    const contract = await this.getContract();
-    const { totalAmount, addresss, amounts } =
-      wrapTransferParams(addressAndAmounts);
+    const chain = this.chain
+    const account = this.account
+    const contract = await this.getContract()
+    const { totalAmount, addresss, amounts } = wrapTransferParams(addressAndAmounts)
     return await contract.write.multiTransferETH([addresss, amounts], {
       chain,
       account,
       value: totalAmount,
-    });
+    })
   }
 }
 
-export default BatchTransfer;
+export default BatchTransfer
