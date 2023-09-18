@@ -33,7 +33,7 @@ export default {
         ).makeOptionMandatory(true)
       )
       .addOption(
-        new Option("--check-allowan", "Check allowance to export").default(true)
+        new Option("--check-allowance", "Check allowance to export").default(true)
       )
       .action((params) => {
         run(Operator.approve, params);
