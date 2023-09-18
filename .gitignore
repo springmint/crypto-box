@@ -16,3 +16,4 @@ yarn-error.log
 node_modules
 dist
 coverage
+.dev.env

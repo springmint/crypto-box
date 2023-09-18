@@ -4,7 +4,7 @@
   "scripts": {
     "deploy": "hardhat --network localhost run ./scripts/deploy.ts",
     "faucet": "hardhat --network localhost faucet",
-    "serve": "hardhat node"
+    "serve": "ts-node ./scripts/generate-env.ts && hardhat node"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
