@@ -31,7 +31,7 @@ const sendBalanceList = [
   },
 ];
 
-describe("batch check balance", () => {
+describe("batch check native balance", () => {
   it("check native token balance", async () => {
     const evm = new EVM(chainId, hasTokenPrivateKey);
     const batchCheckBalance = new BatchCheckBalance(chainId);
@@ -60,7 +60,9 @@ describe("batch check balance", () => {
       }
     });
   });
+});
 
+describe("batch check erc20 balance", () => {
   it("check erc20 token balance", async () => {
     const erc20 = new Erc20(erc20TokenAddress, chainId, hasTokenPrivateKey);
     const batchCheckBalance = new BatchCheckBalance(chainId, erc20TokenAddress);
